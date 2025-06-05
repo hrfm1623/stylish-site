@@ -1,0 +1,9 @@
+name = "stylish-portfolio-site"
+compatibility_date = "2024-01-01"
+
+[env.production]
+name = "stylish-portfolio-site"
+
+[[env.production.pages]]
+project_name = "stylish-portfolio-site"
+production_branch = "main" 

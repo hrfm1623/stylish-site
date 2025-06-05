@@ -1,0 +1,729 @@
+---
+/**
+ * ヒーローセクションコンポーネント
+ * 大きなタイポグラフィとパララックス効果を持つファーストビュー
+ */
+---
+
+<section class="hero parallax-container">
+  <!-- パララックス背景要素 -->
+  <div 
+    class="hero-bg parallax-element" 
+    data-parallax
+    data-parallax-speed="0.3"
+    data-parallax-direction="down"
+  ></div>
+  
+  <!-- AIっぽいバイナリコード背景 -->
+  <div class="binary-bg" id="binary-container"></div>
+  
+  <!-- メインコンテンツ -->
+  <div class="container">
+    <div class="hero-content">
+      <!-- メインヘッドライン -->
+      <div class="hero-text">
+        <h1 class="hero-title" data-reveal>
+          <span class="title-line">
+            <span class="title-word" data-word="Creative">
+              <span class="letter">C</span>
+              <span class="letter">r</span>
+              <span class="letter">e</span>
+              <span class="letter">a</span>
+              <span class="letter">t</span>
+              <span class="letter">i</span>
+              <span class="letter">v</span>
+              <span class="letter">e</span>
+            </span>
+          </span>
+          <span class="title-line">
+            <span class="title-word" data-word="Portfolio">
+              <span class="letter">P</span>
+              <span class="letter">o</span>
+              <span class="letter">r</span>
+              <span class="letter">t</span>
+              <span class="letter">f</span>
+              <span class="letter">o</span>
+              <span class="letter">l</span>
+              <span class="letter">i</span>
+              <span class="letter">o</span>
+            </span>
+          </span>
+        </h1>
+        
+                 <p class="hero-subtitle" data-reveal data-reveal-delay="200">
+           AI × Engineering × Design<br />
+           次世代のインテリジェント体験を設計します。
+         </p>
+        
+        <div class="hero-actions" data-reveal data-reveal-delay="400">
+          <a href="#works" class="cta-button">
+            <span class="button-text">View Works</span>
+            <span class="button-arrow" aria-hidden="true">→</span>
+          </a>
+          
+          <a href="#contact" class="cta-button cta-button--secondary">
+            <span class="button-text">Get in Touch</span>
+          </a>
+        </div>
+      </div>
+      
+      <!-- ヒーローイメージ/図形 -->
+      <div class="hero-visual">
+        <!-- メインシェイプ -->
+        <div class="shape shape--primary"></div>
+        
+        <!-- サブシェイプ -->
+        <div class="shape shape--secondary"></div>
+        <div class="shape shape--accent"></div>
+        
+        <!-- ミニマルなアクセント要素 -->
+        <div class="minimal-dot minimal-dot--1"></div>
+        <div class="minimal-dot minimal-dot--2"></div>
+        <div class="minimal-dot minimal-dot--3"></div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- スクロールインジケーター -->
+  <div class="scroll-indicator" data-reveal data-reveal-delay="600">
+    <span class="scroll-text">Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background-color: var(--color-background);
+  }
+
+  /* パララックス背景 */
+  .hero-bg {
+    position: absolute;
+    top: -10%;
+    left: 0;
+    right: 0;
+    bottom: -10%;
+    background: linear-gradient(
+      135deg,
+      #f8fafc 0%,
+      #ffffff 50%,
+      #f1f5f9 100%
+    );
+    opacity: 0.3;
+    z-index: -2;
+  }
+
+  /* バイナリコード背景 */
+  .binary-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    opacity: 0.05;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.2;
+    color: #000000;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .binary-column {
+    position: absolute;
+    top: -100%;
+    white-space: nowrap;
+    animation: binaryFall linear infinite;
+  }
+
+  @keyframes binaryFall {
+    to {
+      top: 100vh;
+    }
+  }
+
+  /* コンテナ */
+  .container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing-2xl);
+  }
+
+  /* メインコンテンツ */
+  .hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-4xl);
+    align-items: center;
+    width: 100%;
+    min-height: calc(100vh - var(--header-height));
+    padding-top: var(--header-height);
+  }
+
+  /* テキストエリア */
+  .hero-text {
+    z-index: 2;
+  }
+
+  .hero-title {
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 300;
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    margin-bottom: var(--spacing-xl);
+    color: var(--color-primary);
+    overflow: hidden;
+  }
+
+  .title-line {
+    display: block;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .title-line:nth-child(2) {
+    margin-left: var(--spacing-lg);
+  }
+
+  .title-word {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    transition: all var(--transition-slow);
+  }
+
+  .title-word:hover {
+    transform: translateY(-4px);
+  }
+
+  .letter {
+    display: inline-block;
+    position: relative;
+    transition: all var(--transition-normal);
+    animation: letterSlideIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+    opacity: 0;
+    transform: translateY(100px) rotateX(-90deg);
+    animation-fill-mode: both;
+  }
+
+  /* 文字ごとのアニメーション遅延 */
+  .letter:nth-child(1) { animation-delay: 0.1s; }
+  .letter:nth-child(2) { animation-delay: 0.15s; }
+  .letter:nth-child(3) { animation-delay: 0.2s; }
+  .letter:nth-child(4) { animation-delay: 0.25s; }
+  .letter:nth-child(5) { animation-delay: 0.3s; }
+  .letter:nth-child(6) { animation-delay: 0.35s; }
+  .letter:nth-child(7) { animation-delay: 0.4s; }
+  .letter:nth-child(8) { animation-delay: 0.45s; }
+  .letter:nth-child(9) { animation-delay: 0.5s; }
+
+  /* 2行目の文字にはさらに遅延 */
+  .title-line:nth-child(2) .letter:nth-child(1) { animation-delay: 0.6s; }
+  .title-line:nth-child(2) .letter:nth-child(2) { animation-delay: 0.65s; }
+  .title-line:nth-child(2) .letter:nth-child(3) { animation-delay: 0.7s; }
+  .title-line:nth-child(2) .letter:nth-child(4) { animation-delay: 0.75s; }
+  .title-line:nth-child(2) .letter:nth-child(5) { animation-delay: 0.8s; }
+  .title-line:nth-child(2) .letter:nth-child(6) { animation-delay: 0.85s; }
+  .title-line:nth-child(2) .letter:nth-child(7) { animation-delay: 0.9s; }
+  .title-line:nth-child(2) .letter:nth-child(8) { animation-delay: 0.95s; }
+  .title-line:nth-child(2) .letter:nth-child(9) { animation-delay: 1.0s; }
+
+  @keyframes letterSlideIn {
+    0% {
+      opacity: 0;
+      transform: translateY(100px) rotateX(-90deg);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(-10px) rotateX(-45deg);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) rotateX(0deg);
+    }
+  }
+
+  /* ホバー時の文字エフェクト */
+  .title-word:hover .letter {
+    animation: letterHover 0.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes letterHover {
+    0% {
+      transform: translateY(0) scale(1);
+      color: var(--color-primary);
+    }
+    100% {
+      transform: translateY(-8px) scale(1.05);
+      color: var(--color-secondary);
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  /* 文字ホバー時の個別遅延 */
+  .title-word:hover .letter:nth-child(1) { animation-delay: 0s; }
+  .title-word:hover .letter:nth-child(2) { animation-delay: 0.05s; }
+  .title-word:hover .letter:nth-child(3) { animation-delay: 0.1s; }
+  .title-word:hover .letter:nth-child(4) { animation-delay: 0.15s; }
+  .title-word:hover .letter:nth-child(5) { animation-delay: 0.2s; }
+  .title-word:hover .letter:nth-child(6) { animation-delay: 0.25s; }
+  .title-word:hover .letter:nth-child(7) { animation-delay: 0.3s; }
+  .title-word:hover .letter:nth-child(8) { animation-delay: 0.35s; }
+  .title-word:hover .letter:nth-child(9) { animation-delay: 0.4s; }
+
+  .hero-subtitle {
+    font-size: var(--font-size-lg);
+    line-height: 1.6;
+    color: var(--color-secondary);
+    margin-bottom: var(--spacing-2xl);
+    max-width: 500px;
+  }
+
+  /* アクションボタン */
+  .hero-actions {
+    display: flex;
+    gap: var(--spacing-lg);
+    flex-wrap: wrap;
+  }
+
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-xl);
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    letter-spacing: 0.025em;
+    border-radius: var(--radius-full);
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: left var(--transition-slow);
+  }
+
+  .cta-button:hover::before {
+    left: 100%;
+  }
+
+  .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .cta-button--secondary {
+    background-color: transparent;
+    color: var(--color-primary);
+    border: 1px solid var(--color-border);
+  }
+
+  .cta-button--secondary:hover {
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    border-color: var(--color-primary);
+  }
+
+  .button-arrow {
+    font-size: var(--font-size-lg);
+    transition: transform var(--transition-normal);
+  }
+
+  .cta-button:hover .button-arrow {
+    transform: translateX(4px);
+  }
+
+  /* ビジュアルエリア */
+  .hero-visual {
+    position: relative;
+    height: 500px;
+    z-index: 1;
+  }
+
+  /* メインシェイプ */
+  .shape {
+    position: absolute;
+    transition: transform var(--transition-slow) ease-out;
+    will-change: transform;
+  }
+
+  .shape--primary {
+    width: 220px;
+    height: 220px;
+    top: 45%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(
+      135deg,
+      var(--color-primary) 0%,
+      var(--color-secondary) 100%
+    );
+    border-radius: var(--radius-2xl);
+    box-shadow: 
+      0 25px 50px rgba(0, 0, 0, 0.15),
+      0 0 0 1px rgba(255, 255, 255, 0.1);
+    animation: gentleFloat 8s ease-in-out infinite;
+  }
+
+  .shape--secondary {
+    width: 140px;
+    height: 140px;
+    top: 20%;
+    right: 20%;
+    background: linear-gradient(
+      -45deg,
+      var(--color-accent) 0%,
+      var(--color-primary) 100%
+    );
+    border-radius: 50%;
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.1),
+      0 0 0 1px rgba(255, 255, 255, 0.05);
+    animation: gentleFloat 10s ease-in-out infinite reverse;
+  }
+
+  .shape--accent {
+    width: 100px;
+    height: 160px;
+    bottom: 25%;
+    left: 15%;
+    background: linear-gradient(
+      180deg,
+      var(--color-secondary) 0%,
+      var(--color-accent) 100%
+    );
+    border-radius: var(--radius-full);
+    box-shadow: 
+      0 15px 30px rgba(0, 0, 0, 0.12),
+      0 0 0 1px rgba(255, 255, 255, 0.08);
+    animation: gentleFloat 12s ease-in-out infinite;
+    animation-delay: -2s;
+  }
+
+  @keyframes gentleFloat {
+    0%, 100% {
+      transform: translate(-50%, -50%) translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translate(-50%, -50%) translateY(-15px) rotate(1deg);
+    }
+  }
+
+  /* ミニマルドット */
+  .minimal-dot {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    opacity: 0.4;
+    animation: subtlePulse 4s ease-in-out infinite;
+  }
+
+  .minimal-dot--1 {
+    top: 15%;
+    left: 25%;
+    animation-delay: 0s;
+  }
+
+  .minimal-dot--2 {
+    top: 70%;
+    right: 30%;
+    animation-delay: -1.5s;
+  }
+
+  .minimal-dot--3 {
+    bottom: 40%;
+    left: 70%;
+    animation-delay: -3s;
+  }
+
+  @keyframes subtlePulse {
+    0%, 100% {
+      opacity: 0.4;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.2);
+    }
+  }
+
+
+
+  /* スクロールインジケーター */
+  .scroll-indicator {
+    position: absolute;
+    bottom: var(--spacing-2xl);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--color-secondary);
+    font-size: var(--font-size-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 60px;
+    background-color: var(--color-border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scroll-line::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background-color: var(--color-secondary);
+    animation: scrollDown 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollDown {
+    0% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(200%);
+      opacity: 0;
+    }
+  }
+
+  /* レスポンシブ対応 */
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 var(--spacing-xl);
+    }
+
+    .hero-content {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-2xl);
+      text-align: center;
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 7vw, 4rem);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .title-line:nth-child(2) {
+      margin-left: 0;
+    }
+
+    .hero-subtitle {
+      font-size: var(--font-size-base);
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .hero-actions {
+      justify-content: center;
+      gap: var(--spacing-md);
+    }
+
+    .cta-button {
+      padding: var(--spacing-sm) var(--spacing-lg);
+      font-size: var(--font-size-xs);
+    }
+
+    .hero-visual {
+      height: 300px;
+      order: -1;
+    }
+
+    .shape--primary {
+      width: 160px;
+      height: 160px;
+    }
+
+    .shape--secondary {
+      width: 100px;
+      height: 100px;
+    }
+
+    .shape--accent {
+      width: 70px;
+      height: 120px;
+    }
+
+    .minimal-dot {
+      width: 4px;
+      height: 4px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .container {
+      padding: 0 var(--spacing-xl);
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 6vw, 3rem);
+    }
+
+    .hero-actions {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .cta-button {
+      width: 200px;
+      justify-content: center;
+    }
+  }
+
+  /* アクセシビリティ対応 */
+  @media (prefers-reduced-motion: reduce) {
+    .letter {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+
+    .title-word:hover .letter {
+      animation: none;
+    }
+
+    .title-word:hover {
+      transform: none;
+    }
+
+    .cta-button,
+    .scroll-line::after {
+      animation: none;
+      transition: none;
+    }
+
+    .cta-button:hover {
+      transform: none;
+    }
+  }
+
+  /* ダークモード対応（将来の拡張用） */
+  @media (prefers-color-scheme: dark) {
+    .hero-bg {
+      background: linear-gradient(
+        135deg,
+        #1a1a1a 0%,
+        #000000 50%,
+        #2a2a2a 100%
+      );
+    }
+    
+    .binary-bg {
+      color: #ffffff;
+    }
+  }
+</style>
+
+<script>
+  /**
+   * バイナリコード背景エフェクト
+   * AIっぽいマトリックス風の演出
+   */
+  class BinaryEffect {
+    private container!: HTMLElement;
+    private columns: number = 0;
+    private animationId: number = 0;
+
+    constructor(containerId: string) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      
+      this.container = container;
+      this.init();
+    }
+
+    private init(): void {
+      this.calculateColumns();
+      this.createBinaryColumns();
+      this.setupResizeListener();
+    }
+
+    private calculateColumns(): void {
+      const containerWidth = this.container.offsetWidth;
+      this.columns = Math.floor(containerWidth / 20); // 20px間隔
+    }
+
+    private createBinaryColumns(): void {
+      this.container.innerHTML = '';
+      
+      for (let i = 0; i < this.columns; i++) {
+        const column = document.createElement('div');
+        column.className = 'binary-column';
+        column.style.left = `${i * 20}px`;
+        column.style.animationDuration = `${3 + Math.random() * 4}s`;
+        column.style.animationDelay = `${Math.random() * 2}s`;
+        
+        // バイナリコードの生成
+        const binaryString = this.generateBinaryString(30);
+        column.textContent = binaryString;
+        
+        this.container.appendChild(column);
+      }
+    }
+
+    private generateBinaryString(length: number): string {
+      let result = '';
+      for (let i = 0; i < length; i++) {
+        // 0と1の他にもAI関連のテキストを時々混ぜる
+        if (Math.random() < 0.05) {
+          const aiTerms = ['AI', 'ML', 'NN', 'DL', 'TF'];
+          result += aiTerms[Math.floor(Math.random() * aiTerms.length)] + '\n';
+        } else {
+          result += Math.random() < 0.5 ? '0' : '1';
+          result += '\n';
+        }
+      }
+      return result;
+    }
+
+    private setupResizeListener(): void {
+      window.addEventListener('resize', () => {
+        this.calculateColumns();
+        this.createBinaryColumns();
+      });
+    }
+  }
+
+  // DOM読み込み完了時に初期化
+  document.addEventListener('DOMContentLoaded', () => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    if (!prefersReducedMotion) {
+      new BinaryEffect('binary-container');
+    }
+  });
+</script> 

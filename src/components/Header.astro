@@ -1,0 +1,432 @@
+---
+/**
+ * ヘッダーコンポーネント
+ * UNIELサイトを参考にしたミニマルなナビゲーション
+ */
+---
+
+<header class="header">
+  <div class="container">
+    <div class="header-content">
+      <!-- ロゴ/ブランド名 -->
+      <div class="brand">
+        <a href="/" class="brand-link">
+          <span class="brand-text">Portfolio</span>
+        </a>
+      </div>
+
+      <!-- メインナビゲーション -->
+      <nav class="navigation" role="navigation" aria-label="Primary navigation">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="#about" class="nav-link">About</a>
+          </li>
+          <li class="nav-item">
+            <a href="#works" class="nav-link">Works</a>
+          </li>
+          <li class="nav-item">
+            <a href="#skills" class="nav-link">Skills</a>
+          </li>
+          <li class="nav-item">
+            <a href="#contact" class="nav-link">Contact</a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- モバイルメニューボタン -->
+      <button 
+        class="mobile-menu-button" 
+        aria-label="Toggle mobile menu"
+        aria-expanded="false"
+        type="button"
+      >
+        <span class="hamburger">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--color-background);
+    border-bottom: 1px solid var(--color-border);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    transition: all var(--transition-normal);
+  }
+
+  .container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing-2xl);
+  }
+
+  .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--header-height);
+  }
+
+  /* ブランド */
+  .brand {
+    flex-shrink: 0;
+  }
+
+  .brand-link {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--color-primary);
+    transition: all var(--transition-fast);
+  }
+
+  .brand-link:hover {
+    opacity: 0.7;
+  }
+
+  .brand-text {
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  /* ナビゲーション */
+  .navigation {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .nav-list {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2xl);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .nav-item {
+    position: relative;
+  }
+
+  .nav-link {
+    display: block;
+    padding: var(--spacing-sm) var(--spacing-md);
+    color: var(--color-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: 400;
+    text-decoration: none;
+    letter-spacing: 0.025em;
+    transition: all var(--transition-fast);
+    position: relative;
+  }
+
+  .nav-link:hover {
+    color: var(--color-primary);
+  }
+
+  /* アクティブリンクの下線 */
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background-color: var(--color-primary);
+    transform: translateX(-50%);
+    transition: width var(--transition-normal);
+  }
+
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    width: 100%;
+  }
+
+  /* モバイルメニューボタン */
+  .mobile-menu-button {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--spacing-sm);
+    z-index: 1001;
+  }
+
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    width: 24px;
+    height: 18px;
+    position: relative;
+  }
+
+  .hamburger-line {
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-primary);
+    transition: all var(--transition-normal);
+    transform-origin: center;
+  }
+
+  .hamburger-line:nth-child(1) {
+    margin-bottom: 6px;
+  }
+
+  .hamburger-line:nth-child(2) {
+    margin-bottom: 6px;
+  }
+
+  /* ハンバーガーメニューアニメーション */
+  .mobile-menu-button[aria-expanded="true"] .hamburger-line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .mobile-menu-button[aria-expanded="true"] .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-menu-button[aria-expanded="true"] .hamburger-line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  /* レスポンシブ対応 */
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 var(--spacing-xl);
+    }
+
+    .navigation {
+      position: fixed;
+      top: var(--header-height);
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--color-background);
+      transform: translateX(-100%);
+      transition: transform var(--transition-normal);
+      z-index: 999;
+    }
+
+    .navigation.is-open {
+      transform: translateX(0);
+    }
+
+    .nav-list {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: var(--spacing-2xl) var(--spacing-lg);
+      height: 100%;
+    }
+
+    .nav-item {
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .nav-item:last-child {
+      border-bottom: none;
+    }
+
+    .nav-link {
+      padding: var(--spacing-lg) 0;
+      font-size: var(--font-size-lg);
+    }
+
+    .nav-link::after {
+      display: none;
+    }
+
+    .mobile-menu-button {
+      display: block;
+    }
+  }
+
+  /* スクロール時のヘッダースタイル */
+  .header.is-scrolled {
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  @media (max-width: 480px) {
+    .container {
+      padding: 0 var(--spacing-xl);
+    }
+  }
+
+  /* アクセシビリティ対応 */
+  @media (prefers-reduced-motion: reduce) {
+    .header,
+    .nav-link,
+    .hamburger-line,
+    .navigation {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  /**
+   * ヘッダーのインタラクション処理
+   * モバイルメニューの開閉とスクロール時のスタイル変更
+   */
+  
+  class HeaderManager {
+    private header: HTMLElement;
+    private mobileMenuButton: HTMLButtonElement;
+    private navigation: HTMLElement;
+    private navLinks: NodeListOf<HTMLAnchorElement>;
+    private isMenuOpen = false;
+
+    constructor() {
+      this.header = document.querySelector('.header') as HTMLElement;
+      this.mobileMenuButton = document.querySelector('.mobile-menu-button') as HTMLButtonElement;
+      this.navigation = document.querySelector('.navigation') as HTMLElement;
+      this.navLinks = document.querySelectorAll('.nav-link');
+      
+      this.init();
+    }
+
+    /**
+     * ヘッダーマネージャーの初期化
+     */
+    private init(): void {
+      this.setupEventListeners();
+      this.updateActiveLink();
+    }
+
+    /**
+     * イベントリスナーの設定
+     */
+    private setupEventListeners(): void {
+      // モバイルメニューの開閉
+      this.mobileMenuButton?.addEventListener('click', this.toggleMobileMenu.bind(this));
+      
+      // スクロール時のヘッダースタイル変更
+      window.addEventListener('scroll', this.handleScroll.bind(this), { passive: true });
+      
+      // ナビゲーションリンクのクリック処理
+      this.navLinks.forEach(link => {
+        link.addEventListener('click', this.handleNavClick.bind(this));
+      });
+      
+      // ウィンドウリサイズ時の処理
+      window.addEventListener('resize', this.handleResize.bind(this));
+    }
+
+    /**
+     * モバイルメニューの開閉切り替え
+     */
+    private toggleMobileMenu(): void {
+      this.isMenuOpen = !this.isMenuOpen;
+      
+      this.mobileMenuButton.setAttribute('aria-expanded', this.isMenuOpen.toString());
+      this.navigation.classList.toggle('is-open', this.isMenuOpen);
+      
+      // メニューが開いている時はスクロールを無効化
+      document.body.style.overflow = this.isMenuOpen ? 'hidden' : '';
+    }
+
+    /**
+     * ナビゲーションリンクのクリック処理
+     */
+    private handleNavClick(event: Event): void {
+      const link = event.currentTarget as HTMLAnchorElement;
+      const href = link.getAttribute('href');
+      
+      if (href?.startsWith('#')) {
+        event.preventDefault();
+        
+        const targetId = href.substring(1);
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+          const headerHeight = this.header.offsetHeight;
+          const targetPosition = targetElement.offsetTop - headerHeight;
+          
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+          
+          // モバイルメニューを閉じる
+          if (this.isMenuOpen) {
+            this.toggleMobileMenu();
+          }
+          
+          // アクティブリンクを更新
+          this.updateActiveLink(href);
+        }
+      }
+    }
+
+    /**
+     * スクロール時のヘッダースタイル処理
+     */
+    private handleScroll(): void {
+      const scrollY = window.pageYOffset;
+      const isScrolled = scrollY > 50;
+      
+      this.header.classList.toggle('is-scrolled', isScrolled);
+      
+      // 現在のセクションに基づいてアクティブリンクを更新
+      this.updateActiveLink();
+    }
+
+    /**
+     * ウィンドウリサイズ時の処理
+     */
+    private handleResize(): void {
+      // デスクトップサイズに戻った時にモバイルメニューを閉じる
+      if (window.innerWidth > 768 && this.isMenuOpen) {
+        this.toggleMobileMenu();
+      }
+    }
+
+    /**
+     * アクティブリンクの更新
+     */
+    private updateActiveLink(activeHref?: string): void {
+      if (activeHref) {
+        // 指定されたリンクをアクティブに
+        this.navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === activeHref);
+        });
+      } else {
+        // スクロール位置に基づいてアクティブリンクを判定
+        const sections = ['about', 'works', 'skills', 'contact'];
+        const headerHeight = this.header.offsetHeight;
+        const scrollY = window.pageYOffset + headerHeight + 100;
+        
+        let activeSection = '';
+        
+        sections.forEach(sectionId => {
+          const section = document.getElementById(sectionId);
+          if (section && scrollY >= section.offsetTop) {
+            activeSection = `#${sectionId}`;
+          }
+        });
+        
+        this.navLinks.forEach(link => {
+          const href = link.getAttribute('href');
+          link.classList.toggle('active', href === activeSection);
+        });
+      }
+    }
+  }
+
+  // DOM読み込み完了時に初期化
+  document.addEventListener('DOMContentLoaded', () => {
+    new HeaderManager();
+  });
+</script> 
